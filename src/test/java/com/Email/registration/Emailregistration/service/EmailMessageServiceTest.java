@@ -69,8 +69,16 @@ class EmailMessageServiceTest {
     }
 
     @Test
-    void testThatWeCountAvailableMessages(){
+    void testThatWeCountAvailableMessages() throws EmailMessageException {
+
+        assertEquals("available messages : "+2, messageService.countAvailableMessages("iyaMaria4@gmail.com"));
 
     }
+    @Test
+    void testThatUserCanViewAllMessages() throws EmailMessageException {
+
+        assertEquals("user can view all", messageService.viewAllMessages("iyaMaria4@gmail.com",1,1));
+    }
+
 
 }

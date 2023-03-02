@@ -6,9 +6,13 @@ import com.Email.registration.Emailregistration.data.repository.EmailMessageRepo
 import com.Email.registration.Emailregistration.dto.request.EmailMessageRequest;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
+
 
 @Service
 public class EmailMessageServiceImpl implements  EmailMessageService{
@@ -49,5 +53,21 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
    adminService.saveEmailAdmin(messageReceiver);
     messageRepository.save(writtenEmailMessage);
         return writtenEmailMessage;
+    }
+
+    @Override
+    public String countAvailableMessages(String emailAddress)  {
+        long countMessage = messageRepository.countAllByReceiverEmail(emailAddress);
+        if (countMessage <= 0) return " no available messages ".toUpperCase();
+        return "available messages : "+countMessage;
+    }
+
+    @Override
+    public List<EmailMessage> viewAllMessages(String emailAddress, int pageNum, int pageSize) throws EmailMessageException {
+        var pageable = PageRequest.of(pageNum, pageSize);
+        Page<EmailMessage> mailsList =  messageRepository.findAllByReceiverEmail(emailAddress, pageable);
+        System.out.println(mailsList);
+        if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
+        return mailsList.getContent();
     }
 }
