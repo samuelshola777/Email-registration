@@ -2,9 +2,7 @@ package com.Email.registration.Emailregistration.service;
 
 import com.Email.registration.Emailregistration.data.model.EmailAdmin;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
-import com.Email.registration.Emailregistration.dto.request.EmailLoginRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
-import com.Email.registration.Emailregistration.dto.response.EmailAdminResponse;
 import com.Email.registration.Emailregistration.exception.EmailException;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
 
@@ -34,12 +32,11 @@ public interface EmailAdminService {
     long countEmailUsers();
 
     String deleteAllEmailUsers();
-
     void saveEmailAdmin(EmailAdmin emailAdmin);
 
-    long viewUserId(EmailAdminRequest emailAdmin3);
 
-    EmailAdmin loginToThereEmailAccount(String password, String emailAddress) throws LoginException;
+
+    EmailAdmin loginToEmailAccount(String password, String emailAddress) throws LoginException;
 
     String changeEmailUserFirstName(EmailUpdateRequest updateRequest) throws LoginException;
 

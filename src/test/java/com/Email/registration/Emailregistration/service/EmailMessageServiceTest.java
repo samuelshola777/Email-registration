@@ -17,10 +17,7 @@ class EmailMessageServiceTest {
     EmailMessageRequest messageRequest4;
     @Autowired
     private  EmailMessageService messageService;
-//    @Autowired
-//    public EmailMessageServiceTest(EmailMessageService messageService) {
-//        this.messageService = messageService;
-//    }
+
 
     @BeforeEach
     void setUp() {
@@ -55,7 +52,7 @@ class EmailMessageServiceTest {
     void testThatWeCanWriteAndSaveMessage() throws EmailMessageException {
 
 
-    messageService.sendEmailMessage(messageRequest1);
+   messageService.sendEmailMessage(messageRequest1);
     messageService.sendEmailMessage(messageRequest2);
     messageService.sendEmailMessage(messageRequest3);
     messageService.sendEmailMessage(messageRequest4);
@@ -78,6 +75,12 @@ class EmailMessageServiceTest {
     void testThatUserCanViewAllMessages() throws EmailMessageException {
 
         assertEquals("user can view all", messageService.viewAllMessages("iyaMaria4@gmail.com",1,1));
+
+
+    }
+    @Test
+    void testThatAllMessagesCanBeDelete(){
+        messageService.deleteAllMessages();
     }
 
 

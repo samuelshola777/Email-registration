@@ -18,4 +18,6 @@ public interface EmailMessageService {
     String countAvailableMessages(String s) throws EmailMessageException;
 
     List<EmailMessage> viewAllMessages(String emailAddress, int page, int size) throws EmailMessageException;
+
+    void deleteAllMessages();
 }

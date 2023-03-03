@@ -13,4 +13,7 @@ public interface EmailMessageRepository extends JpaRepository<EmailMessage, Long
 
     long countAllByReceiverEmail(String emailAddress);
     Page<EmailMessage> findAllByReceiverEmail(String emailAddress, Pageable pageable);
+
+
+    EmailMessage findByReceiverId(long receiverId);
 }

@@ -1,24 +1,18 @@
 package com.Email.registration.Emailregistration.service;
 import com.Email.registration.Emailregistration.data.model.EmailAdmin;
-import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.data.repository.EmailAdminRepository;
-import com.Email.registration.Emailregistration.data.repository.EmailMessageRepository;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
-import com.Email.registration.Emailregistration.dto.request.EmailMessageRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
-import com.Email.registration.Emailregistration.dto.response.EmailAdminResponse;
 import com.Email.registration.Emailregistration.exception.EmailException;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.LoginException;
-import java.util.List;
 
 @Service
 public class EmailAdminServicesImpl implements EmailAdminService {
     private EmailAdminRepository emailAdminRepository;
-
     @Autowired
     public EmailAdminServicesImpl(EmailAdminRepository emailAdminRepository) {
         this.emailAdminRepository = emailAdminRepository;
@@ -26,7 +20,9 @@ public class EmailAdminServicesImpl implements EmailAdminService {
     @Override
     public String registerEmailAccount(EmailAdminRequest emailAdminRequest) throws EmailException {
         EmailAdmin emailAdminObject = mapFromRequestToEmailAdmin(emailAdminRequest);
-        if (!verifyIfUserNameContainsDigit(emailAdminObject.getUserName())) throw new EmailException("user name should contain at least one digit");
+        String username = emailAdminRequest.getUserName();
+        if (username == null) throw new EmailException("user name is null");
+        if (!verifyIfUserNameContainsDigit(username)) throw new EmailException("user name should contain at least one digit");
         emailAdminObject  = checkIfUserNameExistInDatabase(emailAdminObject);
         emailAdminObject = verifyIfPhoneNumberContainAlphabetic(emailAdminObject);
         String generatedEmailAddress = createEmailGenerator(emailAdminObject);
@@ -117,14 +113,9 @@ public class EmailAdminServicesImpl implements EmailAdminService {
         emailAdminRepository.save(emailAdmin);
     }
 
-    @Override
-    public long viewUserId(EmailAdminRequest emailAdmin3) {
-        EmailAdmin emailAdmin = mapFromRequestToEmailAdmin(emailAdmin3);
 
-        return emailAdmin.getEmailId();
-    }
     @Override
-    public EmailAdmin loginToThereEmailAccount(String password, String emailAddress) throws LoginException {
+    public EmailAdmin loginToEmailAccount(String password, String emailAddress) throws LoginException {
      EmailAdmin incomingEmail =  emailAdminRepository.
     findByUserEmailAddress(emailAddress);
      if (incomingEmail == null) {
@@ -135,26 +126,20 @@ public class EmailAdminServicesImpl implements EmailAdminService {
      return incomingEmail;
     }
 
-//    public EmailAdmin recieveEmail(EmailMessageRequest emailMessageRequest) throws EmailMessageException {
-//   EmailAdmin receiverEmailAccount = emailAdminRepository.findByUserEmailAddress(emailMessageRequest.getReceiverEmail());
-//        if (receiverEmailAccount == null) {
-//    throw new EmailMessageException("cant find an existing email Account with the email address "+emailMessageRequest.getReceiverEmail());
-//        }
-//        receiverEmailAccount.getMessageList().add(emailMessageRequest);
-//    return receiverEmailAccount;}
+
     @Override
     public String changeEmailUserFirstName(EmailUpdateRequest updateRequest) throws LoginException {
-    EmailAdmin emailAdmin = loginToThereEmailAccount(updateRequest.getPassword(), updateRequest.getEmail());
+    EmailAdmin emailAdmin = loginToEmailAccount(updateRequest.getPassword(), updateRequest.getEmail());
     emailAdmin.setUserFirstname(updateRequest.getFirstName());
     emailAdminRepository.save(emailAdmin);
-        return emailAdmin.getUserFirstname();
+        return "first name has been changed, first name is now: ".toUpperCase()+emailAdmin.getUserFirstname();
     }
     @Override
     public String changeEmailUserLastName(EmailUpdateRequest updateRequest) throws LoginException {
-    EmailAdmin emailAdmin = loginToThereEmailAccount(updateRequest.getPassword(), updateRequest.getEmail());
+    EmailAdmin emailAdmin = loginToEmailAccount(updateRequest.getPassword(), updateRequest.getEmail());
     emailAdmin.setUserLastname(updateRequest.getLastName());
     emailAdminRepository.save(emailAdmin);
-        return String.format(emailAdmin.getUserLastname());
+        return String.format("last name has been changed, last name is now  ".toUpperCase()+emailAdmin.getUserLastname());
     }
 
     @Override
@@ -163,6 +148,7 @@ public class EmailAdminServicesImpl implements EmailAdminService {
  if (foundEmail == null) throw new EmailMessageException("Could not find");
         return foundEmail;
     }
+
 
 
 }

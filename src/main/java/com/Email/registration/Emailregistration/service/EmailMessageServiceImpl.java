@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 
@@ -37,6 +36,7 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
         return emailMessage;
     }
 
+
     @Override
     public long countMessages() {
         return messageRepository.count();
@@ -48,10 +48,12 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
     EmailAdmin messageReceiver = adminService.findByEmailAddress(messageRequest1.getReceiverEmail());
     writtenEmailMessage.setReceiverEmail(messageReceiver.getUserEmailAddress());
     writtenEmailMessage.setSenderEmail(writtenEmailMessage.getSenderEmail());
-    writtenEmailMessage.setEmailAdmin_Id(messageReceiver.getEmailId());
-//    messageReceiver.getMessageList().add(writtenEmailMessage);
+    writtenEmailMessage.setReceiverId(messageReceiver.getEmailId());
+    EmailMessage savedEmailMessage = messageRepository.save(writtenEmailMessage);
+//    if (savedEmailMessage == null) throw new EmailMessageException("saved message couldn't be found");
+  messageReceiver.assignEmailMessage(savedEmailMessage);
    adminService.saveEmailAdmin(messageReceiver);
-    messageRepository.save(writtenEmailMessage);
+
         return writtenEmailMessage;
     }
 
@@ -66,8 +68,13 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
     public List<EmailMessage> viewAllMessages(String emailAddress, int pageNum, int pageSize) throws EmailMessageException {
         var pageable = PageRequest.of(pageNum, pageSize);
         Page<EmailMessage> mailsList =  messageRepository.findAllByReceiverEmail(emailAddress, pageable);
-        System.out.println(mailsList);
+        System.out.println(mailsList.getContent());
         if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
         return mailsList.getContent();
+    }
+
+    @Override
+    public void deleteAllMessages() {
+        messageRepository.deleteAll();
     }
 }

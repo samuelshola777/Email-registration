@@ -3,9 +3,7 @@ package com.Email.registration.Emailregistration.data.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -24,17 +22,18 @@ public class EmailMessage {
     private String topic;
 
     private String subject;
-
+//   @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "emailAdmin_id")
+   private long receiverId;
     private String senderEmail;
     private String receiverEmail;
 
     private LocalTime messageSendingTime = LocalTime.now();
     private LocalDate  messageSendingDate = LocalDate.now();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "emailAdmin_id")
-    private Long emailAdmin_Id;
-//    private EmailAdmin emailAdmin ;
+    private EmailAdmin emailAdmin ;
 
     public String toString() {
         return String.format("""

@@ -138,7 +138,7 @@ assertEquals("SweetJoy45@gmail.com", emailAdminService.createEmailGenerator(emai
     @Test
     void testThatUsersCanLoginToThereEmailAccount() throws LoginException {
 
-        assertEquals("07099332737", emailAdminService.loginToThereEmailAccount("tori","sweetJoy45@gmail.com").getPhoneNumber());
+        assertEquals("07099332737", emailAdminService.loginToEmailAccount("tori","sweetJoy45@gmail.com").getPhoneNumber());
     }
     @Test
     void  testThatUserCanChangeFirstName() throws LoginException {

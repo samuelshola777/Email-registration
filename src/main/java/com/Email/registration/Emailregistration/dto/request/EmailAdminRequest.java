@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmailAdminRequest {
     private long emailId;
+
     private String userFirstname;
     private String userLastname;
     private String userName;
