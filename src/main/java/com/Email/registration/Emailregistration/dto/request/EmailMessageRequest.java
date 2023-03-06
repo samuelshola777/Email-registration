@@ -4,7 +4,7 @@ import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import lombok.Data;
 
 @Data
-public class EmailMessageRequest extends EmailMessage {
+public class EmailMessageRequest{
 
     private String topic;
 

@@ -144,10 +144,11 @@ public class EmailAdminServicesImpl implements EmailAdminService {
 
     @Override
     public EmailAdmin findByEmailAddress(String emailAddress) throws EmailMessageException {
- EmailAdmin foundEmail = emailAdminRepository.findByUserEmailAddress(emailAddress);
- if (foundEmail == null) throw new EmailMessageException("Could not find");
+        EmailAdmin foundEmail = emailAdminRepository.findByUserEmailAddress(emailAddress);
+        if (foundEmail == null) throw new EmailMessageException("invalid email address");
         return foundEmail;
     }
+
 
 
 

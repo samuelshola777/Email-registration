@@ -1,6 +1,7 @@
 package com.Email.registration.Emailregistration.service;
 
 import com.Email.registration.Emailregistration.data.model.EmailAdmin;
+import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
 import com.Email.registration.Emailregistration.exception.EmailException;
@@ -43,4 +44,5 @@ public interface EmailAdminService {
     String changeEmailUserLastName(EmailUpdateRequest updateRequest) throws LoginException;
 
     EmailAdmin findByEmailAddress(String emailAddress) throws EmailMessageException;
+
 }

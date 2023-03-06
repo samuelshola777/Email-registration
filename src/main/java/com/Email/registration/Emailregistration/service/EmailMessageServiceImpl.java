@@ -4,6 +4,7 @@ import com.Email.registration.Emailregistration.data.model.EmailAdmin;
 import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.data.repository.EmailMessageRepository;
 import com.Email.registration.Emailregistration.dto.request.EmailMessageRequest;
+import com.Email.registration.Emailregistration.dto.response.EmailMessageResponse;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,18 +44,27 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
     }
 
     @Override
-    public EmailMessage sendEmailMessage(EmailMessageRequest messageRequest1) throws EmailMessageException {
+    public EmailMessageResponse sendEmailMessage(EmailMessageRequest messageRequest1) throws EmailMessageException {
     EmailMessage writtenEmailMessage = writeEmailMessage(messageRequest1);
     EmailAdmin messageReceiver = adminService.findByEmailAddress(messageRequest1.getReceiverEmail());
     writtenEmailMessage.setReceiverEmail(messageReceiver.getUserEmailAddress());
     writtenEmailMessage.setSenderEmail(writtenEmailMessage.getSenderEmail());
     writtenEmailMessage.setReceiverId(messageReceiver.getEmailId());
-    EmailMessage savedEmailMessage = messageRepository.save(writtenEmailMessage);
-//    if (savedEmailMessage == null) throw new EmailMessageException("saved message couldn't be found");
-  messageReceiver.assignEmailMessage(savedEmailMessage);
-   adminService.saveEmailAdmin(messageReceiver);
-
-        return writtenEmailMessage;
+    writtenEmailMessage.setEmailAdmin(messageReceiver);
+    messageRepository.save(writtenEmailMessage);
+    messageReceiver.assignEmailMessage(writtenEmailMessage);
+    adminService.saveEmailAdmin(messageReceiver);
+    return mapToResponse(writtenEmailMessage);
+    }
+    public EmailMessageResponse mapToResponse(EmailMessage emailMessage){
+        EmailMessageResponse mail = new EmailMessageResponse();
+        mail.setTopic(emailMessage.getTopic());
+        mail.setSubject(emailMessage.getSubject());
+        mail.setSenderEmail(emailMessage.getSenderEmail());
+        mail.setReceiverEmail(emailMessage.getReceiverEmail());
+        mail.setMessageSendingTime(emailMessage.getMessageSendingTime());
+        mail.setMessageSendingDate(emailMessage.getMessageSendingDate());
+        return mail;
     }
 
     @Override
@@ -68,13 +78,21 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
     public List<EmailMessage> viewAllMessages(String emailAddress, int pageNum, int pageSize) throws EmailMessageException {
         var pageable = PageRequest.of(pageNum, pageSize);
         Page<EmailMessage> mailsList =  messageRepository.findAllByReceiverEmail(emailAddress, pageable);
-        System.out.println(mailsList.getContent());
         if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
         return mailsList.getContent();
+    }
+    public EmailMessageResponse getAllMessages(String emailAddress, int pageNum, int pageSize) throws EmailMessageException {
+        var pageable = PageRequest.of(pageNum, pageSize);
+        Page<EmailMessage> mailsList =  messageRepository.findAllByReceiverEmail(emailAddress, pageable);
+        if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
+        List<EmailMessage> messageList    = mailsList.getContent();
+     return  mapToResponse((EmailMessage) messageList);
     }
 
     @Override
     public void deleteAllMessages() {
         messageRepository.deleteAll();
     }
+
+
 }

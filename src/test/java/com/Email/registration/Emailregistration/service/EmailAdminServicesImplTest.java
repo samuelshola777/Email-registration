@@ -155,10 +155,9 @@ assertEquals("SweetJoy45@gmail.com", emailAdminService.createEmailGenerator(emai
     @Test
     void testThatUserCanBeFountWithEmailAddress() throws EmailMessageException {
 
-        assertEquals("amaka", emailAdminService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getUserLastname());
+        assertEquals("ALEXPACKER", emailAdminService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getUserLastname());
 
     }
-
 
 }
 

@@ -26,26 +26,26 @@ class EmailMessageServiceTest {
     messageRequest1.setSubject("omo guy i'm starting" +
             " to get worried and scared because it's feels" +
             " like tunubu is winnning the election");
-    messageRequest1.setReceiverEmail("ami12Sweet.lady@gmail.com");
+    messageRequest1.setSenderEmail("ami12Sweet.lady@gmail.com");
 
     messageRequest2 = new EmailMessageRequest();
     messageRequest2.setTopic("i spoke to tomison on the 2/27/2023");
     messageRequest2.setSubject("i can't wait to speak to tomison at  night about the tech field");
-    messageRequest2.setReceiverEmail("iyaMaria4@gmail.com");
+    messageRequest2.setSenderEmail("iyaMaria4@gmail.com");
 
 
     messageRequest3 = new  EmailMessageRequest();
     messageRequest3.setTopic("thank God say school dey resume next month ");
     messageRequest3.setSubject("bt i learned we'll be having " +
             "online classes and i'm actually not happy about that");
-    messageRequest3.setReceiverEmail("iyaMaria4@gmail.com");
+    messageRequest3.setSenderEmail("iyaMaria4@gmail.com");
 
 
     messageRequest4 = new EmailMessageRequest();
     messageRequest4.setTopic("amirah is  cooking macarony");
     messageRequest4.setSubject("sister aliece gave me some " +
             "packages yesterday and they were lots of stuff");
-    messageRequest4.setReceiverEmail("SweetJoy45@gmail.com");
+    messageRequest4.setSenderEmail("SweetJoy45@gmail.com");
     }
 
     @Test
