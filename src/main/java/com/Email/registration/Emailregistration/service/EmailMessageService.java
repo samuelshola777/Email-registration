@@ -19,7 +19,7 @@ public interface EmailMessageService {
     String countAvailableMessages(String s) throws EmailMessageException;
 
     List<EmailMessage> viewAllMessages(String emailAddress, int page, int size) throws EmailMessageException;
-    EmailMessageResponse getAllMessages(String emailAddress, int pageNum, int pageSize);
+//    EmailMessageResponse getAllMessages(String emailAddress, int pageNum, int pageSize);
 
     void deleteAllMessages();
 }

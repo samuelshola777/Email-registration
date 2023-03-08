@@ -1,5 +1,6 @@
 package com.Email.registration.Emailregistration.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class EmailAdmin {
     private String phoneNumber;
     private String userEmailAddress;
 
+    @JsonIgnore
    @OneToMany(mappedBy = "emailAdmin", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailMessage> messageList = new ArrayList<>();
 

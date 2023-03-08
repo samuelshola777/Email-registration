@@ -34,9 +34,9 @@ public class EmailMessageController {
     return new ResponseEntity<>(emailService.viewAllMessages(emailAddress, pagNum, pagesize),HttpStatus.OK);
 }
 
-//    @GetMapping("/getAllEmailMessages/{emailAddress}/{pagNum}/{page_size}")
-//    public
+
+    }
 
 
 
-}
+

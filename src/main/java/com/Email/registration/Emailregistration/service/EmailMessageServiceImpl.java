@@ -81,18 +81,28 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
         if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
         return mailsList.getContent();
     }
-    public EmailMessageResponse getAllMessages(String emailAddress, int pageNum, int pageSize) throws EmailMessageException {
-        var pageable = PageRequest.of(pageNum, pageSize);
-        Page<EmailMessage> mailsList =  messageRepository.findAllByReceiverEmail(emailAddress, pageable);
-        if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
-        List<EmailMessage> messageList    = mailsList.getContent();
-     return  mapToResponse((EmailMessage) messageList);
-    }
+//    public EmailMessageResponse getAllMessages(String emailAddress, int pageNum, int pageSize) throws EmailMessageException {
+//        var pageable = PageRequest.of(pageNum, pageSize);
+//        Page<EmailMessage> mailsList =  messageRepository.findAllByReceiverEmail(emailAddress, pageable);
+//        if (!mailsList.hasContent()) throw new EmailMessageException("no existing messages");
+//        List<EmailMessage> messageList    = mailsList.getContent();
+//     return  mapToResponse((EmailMessage) messageList;
+//    }
 
     @Override
     public void deleteAllMessages() {
         messageRepository.deleteAll();
     }
 
-
+//    public EmailMessageResponse mapFromListToResponse(List<EmailMessage> emailMessagelist){
+//        EmailMessageResponse mail = new EmailMessageResponse();
+//        mail.setTopic(emailMessage.getTopic());
+//        mail.setSubject(emailMessage.getSubject());
+//        mail.setSenderEmail(emailMessage.getSenderEmail());
+//        mail.setReceiverEmail(emailMessage.getReceiverEmail());
+//        mail.setMessageSendingTime(emailMessage.getMessageSendingTime());
+//        mail.setMessageSendingDate(emailMessagelist.get().getMessageSendingDate());
+//
+//        return mail;
+//    }
 }

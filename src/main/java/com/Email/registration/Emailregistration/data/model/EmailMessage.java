@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
+
 public class EmailMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
