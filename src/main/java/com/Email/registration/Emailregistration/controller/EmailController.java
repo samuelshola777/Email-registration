@@ -3,6 +3,7 @@ package com.Email.registration.Emailregistration.controller;
 import com.Email.registration.Emailregistration.data.model.EmailAdmin;
 import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
+import com.Email.registration.Emailregistration.dto.request.EmailLoginRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
 import com.Email.registration.Emailregistration.exception.EmailException;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
@@ -22,7 +23,8 @@ public class EmailController {
     EmailAdminService emailService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> createEmailAddress(@RequestBody EmailAdminRequest emailAdminRequest) throws EmailException {
+    public ResponseEntity<String> createEmailAddress(@RequestBody EmailAdminRequest emailAdminRequest)
+            throws EmailException {
     return new ResponseEntity<>(emailService.registerEmailAccount(emailAdminRequest), HttpStatus.CREATED );
     }
 
@@ -31,9 +33,9 @@ public class EmailController {
         return new ResponseEntity<>(emailService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/login/{password},{emailAddress}")
-    public ResponseEntity<EmailAdmin> login(@PathVariable String password,@PathVariable String emailAddress) throws EmailException, LoginException {
-        return new ResponseEntity<>(emailService.loginToEmailAccount(password, emailAddress), HttpStatus.CREATED);
+    @GetMapping("/login")
+    public ResponseEntity<EmailAdmin> login(@RequestBody EmailLoginRequest loginRequest) throws EmailException, LoginException {
+        return new ResponseEntity<>(emailService.loginToEmailAccount(loginRequest), HttpStatus.CREATED);
     }
 
     @PostMapping("/change/lastName")

@@ -2,6 +2,7 @@ package com.Email.registration.Emailregistration.service;
 import com.Email.registration.Emailregistration.data.model.EmailAdmin;
 import com.Email.registration.Emailregistration.data.repository.EmailAdminRepository;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
+import com.Email.registration.Emailregistration.dto.request.EmailLoginRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
 import com.Email.registration.Emailregistration.exception.EmailException;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
@@ -114,30 +115,37 @@ public class EmailAdminServicesImpl implements EmailAdminService {
     }
 
 
+
     @Override
-    public EmailAdmin loginToEmailAccount(String password, String emailAddress) throws LoginException {
-     EmailAdmin incomingEmail =  emailAdminRepository.
-    findByUserEmailAddress(emailAddress);
-     if (incomingEmail == null) {
-         throw new LoginException("invalid email address".toUpperCase());
-     } else if (! incomingEmail.getPassword().equals(password)) {
-         throw new LoginException("incorrect password".toUpperCase());
-     }
-     return incomingEmail;
+    public EmailAdmin loginToEmailAccount(EmailLoginRequest loginRequest) throws LoginException {
+        EmailAdmin incomingEmail =  emailAdminRepository.
+                findByUserEmailAddress(loginRequest.getEmail());
+        if (incomingEmail == null) {
+            throw new LoginException("invalid email address".toUpperCase());
+        } else if (! incomingEmail.getPassword().equals(loginRequest.getPassword())) {
+            throw new LoginException("incorrect password".toUpperCase());
+        }
+        return incomingEmail;
     }
 
 
     @Override
     public String changeEmailUserFirstName(EmailUpdateRequest updateRequest) throws LoginException {
-    EmailAdmin emailAdmin = loginToEmailAccount(updateRequest.getPassword(), updateRequest.getEmail());
+        EmailLoginRequest loginRequest = new EmailLoginRequest();
+        loginRequest.setEmail(updateRequest.getEmail());
+        loginRequest.setPassword(updateRequest.getPassword());
+    EmailAdmin emailAdmin = loginToEmailAccount(loginRequest);
     emailAdmin.setUserFirstname(updateRequest.getFirstName());
     emailAdminRepository.save(emailAdmin);
         return "first name has been changed, first name is now: ".toUpperCase()+emailAdmin.getUserFirstname();
     }
     @Override
     public String changeEmailUserLastName(EmailUpdateRequest updateRequest) throws LoginException {
-    EmailAdmin emailAdmin = loginToEmailAccount(updateRequest.getPassword(), updateRequest.getEmail());
-    emailAdmin.setUserLastname(updateRequest.getLastName());
+        EmailLoginRequest loginRequest = new EmailLoginRequest();
+        loginRequest.setEmail(updateRequest.getEmail());
+        loginRequest.setPassword(updateRequest.getPassword());
+        EmailAdmin emailAdmin = loginToEmailAccount(loginRequest);
+        emailAdmin.setUserLastname(updateRequest.getLastName());
     emailAdminRepository.save(emailAdmin);
         return String.format("last name has been changed, last name is now  ".toUpperCase()+emailAdmin.getUserLastname());
     }
@@ -149,7 +157,10 @@ public class EmailAdminServicesImpl implements EmailAdminService {
         return foundEmail;
     }
 
-
+    @Override
+    public String printOut() {
+       return "boneshaker";
+    }
 
 
 }

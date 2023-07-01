@@ -39,8 +39,8 @@ class EmailAdminServicesImplTest {
 
 
         loginRequest = new EmailLoginRequest();
-        loginRequest.setEmail("sweetJoy45@gmail.com");
-        loginRequest.setPassword("tori");
+        loginRequest.setEmail("samuelshola14@gmail.com");
+        loginRequest.setPassword("blueBoat");
 
 
         emailAdmin = new EmailAdminRequest();
@@ -138,7 +138,7 @@ assertEquals("SweetJoy45@gmail.com", emailAdminService.createEmailGenerator(emai
     @Test
     void testThatUsersCanLoginToThereEmailAccount() throws LoginException {
 
-        assertEquals("07099332737", emailAdminService.loginToEmailAccount("tori","sweetJoy45@gmail.com").getPhoneNumber());
+        assertEquals("08126345768", emailAdminService.loginToEmailAccount(loginRequest).getPhoneNumber());
     }
     @Test
     void  testThatUserCanChangeFirstName() throws LoginException {
@@ -157,6 +157,10 @@ assertEquals("SweetJoy45@gmail.com", emailAdminService.createEmailGenerator(emai
 
         assertEquals("ALEXPACKER", emailAdminService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getUserLastname());
 
+    }
+    @Test
+    public  void name(){
+        assertEquals("boneshaker",emailAdminService.printOut());
     }
 
 }

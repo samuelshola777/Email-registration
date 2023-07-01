@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add CSS and JS TO THYMELEAF </title>
+    <link th:href = "@{/css/main.css}"  rel="stylesheet">
+    <script type="text/javascript" th:src = "@{/javaScript/action.js}"></script>
+</head>
+<body>
+
+    <h2> Heading </h2>
+
+<p>
+    this is text on which  we want to apply<strong> very special </strong>styling.
+
+</p>
+    <button type="button" th:onclick="demo()"></button>
+
+</body>
+</html>

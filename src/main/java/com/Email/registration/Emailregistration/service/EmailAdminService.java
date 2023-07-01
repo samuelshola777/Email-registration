@@ -3,6 +3,7 @@ package com.Email.registration.Emailregistration.service;
 import com.Email.registration.Emailregistration.data.model.EmailAdmin;
 import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
+import com.Email.registration.Emailregistration.dto.request.EmailLoginRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
 import com.Email.registration.Emailregistration.exception.EmailException;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
@@ -37,7 +38,7 @@ public interface EmailAdminService {
 
 
 
-    EmailAdmin loginToEmailAccount(String password, String emailAddress) throws LoginException;
+    EmailAdmin loginToEmailAccount(EmailLoginRequest loginRequest) throws LoginException;
 
     String changeEmailUserFirstName(EmailUpdateRequest updateRequest) throws LoginException;
 
@@ -45,4 +46,5 @@ public interface EmailAdminService {
 
     EmailAdmin findByEmailAddress(String emailAddress) throws EmailMessageException;
 
+    String printOut();
 }
