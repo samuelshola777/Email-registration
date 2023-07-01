@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 public class facebookConfig {
-    @Value("${facebook.key}")
-    private String key;
-
-
-    @Value("${facebook.secret}")
-    private String secret;
+//    @Value("${facebook.key}")
+//    private String key;
+//
+//
+//    @Value("${facebook.secret}")
+//    private String secret;
 
 
 
