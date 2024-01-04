@@ -32,25 +32,9 @@ public class EmailMessage {
     private LocalTime messageSendingTime = LocalTime.now();
     private LocalDate  messageSendingDate = LocalDate.now();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "emailAdmin_id")
+    @ManyToOne
     private EmailAdmin emailAdmin ;
 
-    public String toString() {
-        return String.format("""
-        
-        message sending date :    %s \n
-        message sending time :     %s \n 
-        message sender emailAddress :  %s \n
-        
-        message topic : \n        
-            %s \n    
-        subject : \n
-            %s        
-                
-                
-            
-                """, messageSendingDate, messageSendingTime, senderEmail, (topic == null ?  topic = " ":topic ),subject);
-    }
+
 
 }
