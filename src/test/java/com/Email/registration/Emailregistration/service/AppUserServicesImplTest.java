@@ -15,9 +15,9 @@ import javax.security.auth.login.LoginException;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-class EmailAdminServicesImplTest {
+class AppUserServicesImplTest {
     @Autowired
-    private EmailAdminService emailAdminService;
+    private AppUserService appUserService;
     EmailAdminRequest emailAdmin;
     EmailAdminRequest emailAdmin1;
     EmailAdminRequest emailAdmin2;
@@ -90,77 +90,77 @@ class EmailAdminServicesImplTest {
 @Disabled
     @Test
     void testThatUserCanRegisterForEmail() throws EmailException {
-        emailAdminService.registerEmailAccount(emailAdmin1);
-        emailAdminService.registerEmailAccount(emailAdmin);
-        emailAdminService.registerEmailAccount(emailAdmin2);
-        emailAdminService.registerEmailAccount(emailAdmin3);
-        emailAdminService.registerEmailAccount(emailAdmin4);
-        emailAdminService.registerEmailAccount(emailAdmin5);
-    assertEquals(6,emailAdminService.countEmailUsers());
+        appUserService.registerEmailAccount(emailAdmin1);
+        appUserService.registerEmailAccount(emailAdmin);
+        appUserService.registerEmailAccount(emailAdmin2);
+        appUserService.registerEmailAccount(emailAdmin3);
+        appUserService.registerEmailAccount(emailAdmin4);
+        appUserService.registerEmailAccount(emailAdmin5);
+    assertEquals(6, appUserService.countEmailUsers());
     }
     @Test
     void testThatUserCanBeFindById() throws EmailException {
 
-        assertEquals("iyaMaria4",emailAdminService.findById(4).getUserName());
+        assertEquals("iyaMaria4", appUserService.findById(4).getUserName());
     }
 
 
     @Test
     void testThatWeCanVerifyIfPhoneNumberContainAlphabetic() throws EmailException {
-        assertEquals("07099332737", emailAdminService.
+        assertEquals("07099332737", appUserService.
                 verifyIfPhoneNumberContainAlphabetic
-                        (emailAdminService.mapFromRequestToEmailAdmin(emailAdmin1))
+                        (appUserService.mapFromRequestToEmailAdmin(emailAdmin1))
                 .getPhoneNumber());
     }
 
     @Test
     void verifyTheLengthOfPhoneNumber(){
-        assertEquals(11, emailAdminService.verifyLengthOfPhoneNumber(emailAdmin1.getPhoneNumber()));
+        assertEquals(11, appUserService.verifyLengthOfPhoneNumber(emailAdmin1.getPhoneNumber()));
     }
 
 @Test
     void creatingEmailGenerator(){
 
-assertEquals("SweetJoy45@gmail.com", emailAdminService.createEmailGenerator(emailAdminService.mapFromRequestToEmailAdmin(emailAdmin1)));
+assertEquals("SweetJoy45@gmail.com", appUserService.createEmailGenerator(appUserService.mapFromRequestToEmailAdmin(emailAdmin1)));
 }
 @Test
     void testThatWeCanCountTheNumberOfEmailUser(){
-        assertEquals(6, emailAdminService.countEmailUsers());
+        assertEquals(6, appUserService.countEmailUsers());
 }
 @Disabled
 @Test
     void testWeCanDeleteAllEmailUsers(){
-        emailAdminService.deleteAllEmailUsers();
-        assertEquals(0, emailAdminService.countEmailUsers());
+        appUserService.deleteAllEmailUsers();
+        assertEquals(0, appUserService.countEmailUsers());
 
 }
 
     @Test
     void testThatUsersCanLoginToThereEmailAccount() throws LoginException {
 
-        assertEquals("08126345768", emailAdminService.loginToEmailAccount(loginRequest).getPhoneNumber());
+        assertEquals("08126345768", appUserService.loginToEmailAccount(loginRequest).getPhoneNumber());
     }
     @Test
     void  testThatUserCanChangeFirstName() throws LoginException {
 
-       assertEquals("black", emailAdminService.changeEmailUserFirstName(updateRequest));
+       assertEquals("black", appUserService.changeEmailUserFirstName(updateRequest));
 
     }
     @Test
     void  testThatUserCanChangeLastName() throws LoginException {
 
-       assertEquals("gabriel", emailAdminService.changeEmailUserLastName(updateRequest));
+       assertEquals("gabriel", appUserService.changeEmailUserLastName(updateRequest));
 
     }
     @Test
     void testThatUserCanBeFountWithEmailAddress() throws EmailMessageException {
 
-        assertEquals("ALEXPACKER", emailAdminService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getUserLastname());
+        assertEquals("ALEXPACKER", appUserService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getUserLastname());
 
     }
     @Test
     public  void name(){
-        assertEquals("boneshaker",emailAdminService.printOut());
+        assertEquals("boneshaker", appUserService.printOut());
     }
 
 }

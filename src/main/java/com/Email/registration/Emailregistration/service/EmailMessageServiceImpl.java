@@ -1,6 +1,6 @@
 package com.Email.registration.Emailregistration.service;
 
-import com.Email.registration.Emailregistration.data.model.EmailAdmin;
+import com.Email.registration.Emailregistration.data.model.AppUser;
 import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.data.repository.EmailMessageRepository;
 import com.Email.registration.Emailregistration.dto.request.EmailMessageRequest;
@@ -19,7 +19,7 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
     @Autowired
     private EmailMessageRepository messageRepository;
     @Autowired
-    private EmailAdminService adminService;
+    private AppUserService adminService;
 
 
 
@@ -46,13 +46,13 @@ public class EmailMessageServiceImpl implements  EmailMessageService{
     @Override
     public EmailMessageResponse sendEmailMessage(EmailMessageRequest messageRequest1) throws EmailMessageException {
     EmailMessage writtenEmailMessage = writeEmailMessage(messageRequest1);
-    EmailAdmin messageReceiver = adminService.findByEmailAddress(messageRequest1.getReceiverEmail());
+    AppUser messageReceiver = adminService.findByEmailAddress(messageRequest1.getReceiverEmail());
     writtenEmailMessage.setReceiverEmail(messageReceiver.getUserEmailAddress());
     writtenEmailMessage.setSenderEmail(writtenEmailMessage.getSenderEmail());
     writtenEmailMessage.setReceiverId(messageReceiver.getEmailId());
-    writtenEmailMessage.setEmailAdmin(messageReceiver);
+    writtenEmailMessage.setAppUser(messageReceiver);
     messageRepository.save(writtenEmailMessage);
-    messageReceiver.assignEmailMessage(writtenEmailMessage);
+//    messageReceiver.assignEmailMessage(writtenEmailMessage);
     adminService.saveEmailAdmin(messageReceiver);
     return mapToResponse(writtenEmailMessage);
     }

@@ -33,7 +33,7 @@ public class EmailMessage {
     private LocalDate  messageSendingDate = LocalDate.now();
 
     @ManyToOne
-    private EmailAdmin emailAdmin ;
+    private AppUser appUser;
 
 
 

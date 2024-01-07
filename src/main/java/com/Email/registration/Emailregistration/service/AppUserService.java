@@ -1,7 +1,6 @@
 package com.Email.registration.Emailregistration.service;
 
-import com.Email.registration.Emailregistration.data.model.EmailAdmin;
-import com.Email.registration.Emailregistration.data.model.EmailMessage;
+import com.Email.registration.Emailregistration.data.model.AppUser;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailLoginRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
@@ -11,40 +10,40 @@ import com.Email.registration.Emailregistration.exception.EmailMessageException;
 import javax.security.auth.login.LoginException;
 
 
-public interface EmailAdminService {
+public interface AppUserService {
     String registerEmailAccount(EmailAdminRequest emailAdmin1) throws EmailException;
 
 
 
-    EmailAdmin findById(long id) throws EmailException;
+    AppUser findById(long id) throws EmailException;
 
-    EmailAdmin mapFromRequestToEmailAdmin(EmailAdminRequest emailAdminRequest);
-    EmailAdmin checkIfUserNameExistInDatabase(EmailAdmin emailAdmin) throws EmailException;
+    AppUser mapFromRequestToEmailAdmin(EmailAdminRequest emailAdminRequest);
+    AppUser checkIfUserNameExistInDatabase(AppUser appUser) throws EmailException;
     boolean ifContainAlphabet(String number);
 
-    EmailAdmin verifyIfPhoneNumberContainAlphabetic(EmailAdmin emailAdmin1) throws EmailException;
+    AppUser verifyIfPhoneNumberContainAlphabetic(AppUser appUser1) throws EmailException;
 
 
     int verifyLengthOfPhoneNumber(String phoneNumber);
 
    boolean verifyIfUserNameContainsDigit(String userName);
 
-    String createEmailGenerator(EmailAdmin emailAdmin1);
+    String createEmailGenerator(AppUser appUser1);
 
     long countEmailUsers();
 
     String deleteAllEmailUsers();
-    void saveEmailAdmin(EmailAdmin emailAdmin);
+    void saveEmailAdmin(AppUser appUser);
 
 
 
-    EmailAdmin loginToEmailAccount(EmailLoginRequest loginRequest) throws LoginException;
+    AppUser loginToEmailAccount(EmailLoginRequest loginRequest) throws LoginException;
 
     String changeEmailUserFirstName(EmailUpdateRequest updateRequest) throws LoginException;
 
     String changeEmailUserLastName(EmailUpdateRequest updateRequest) throws LoginException;
 
-    EmailAdmin findByEmailAddress(String emailAddress) throws EmailMessageException;
+    AppUser findByEmailAddress(String emailAddress) throws EmailMessageException;
 
     String printOut();
 }

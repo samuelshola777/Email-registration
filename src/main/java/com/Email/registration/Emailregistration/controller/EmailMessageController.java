@@ -1,11 +1,8 @@
 package com.Email.registration.Emailregistration.controller;
 
-import com.Email.registration.Emailregistration.data.model.EmailAdmin;
 import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import com.Email.registration.Emailregistration.dto.request.EmailMessageRequest;
 import com.Email.registration.Emailregistration.dto.response.EmailMessageResponse;
-import com.Email.registration.Emailregistration.exception.EmailMessageException;
-import com.Email.registration.Emailregistration.service.EmailAdminService;
 import com.Email.registration.Emailregistration.service.EmailMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

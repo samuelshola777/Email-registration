@@ -1,13 +1,12 @@
 package com.Email.registration.Emailregistration.controller;
 
-import com.Email.registration.Emailregistration.data.model.EmailAdmin;
-import com.Email.registration.Emailregistration.data.model.EmailMessage;
+import com.Email.registration.Emailregistration.data.model.AppUser;
 import com.Email.registration.Emailregistration.dto.request.EmailAdminRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailLoginRequest;
 import com.Email.registration.Emailregistration.dto.request.EmailUpdateRequest;
 import com.Email.registration.Emailregistration.exception.EmailException;
 import com.Email.registration.Emailregistration.exception.EmailMessageException;
-import com.Email.registration.Emailregistration.service.EmailAdminService;
+import com.Email.registration.Emailregistration.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import javax.security.auth.login.LoginException;
 @RestController
 public class EmailController {
     @Autowired
-    EmailAdminService emailService;
+    AppUserService emailService;
 
     @PostMapping("/register")
     public ResponseEntity<String> createEmailAddress(@RequestBody EmailAdminRequest emailAdminRequest)
@@ -29,12 +28,12 @@ public class EmailController {
     }
 
     @GetMapping("/findById{id}")
-    public ResponseEntity<EmailAdmin> findById(@PathVariable long id) throws EmailException {
+    public ResponseEntity<AppUser> findById(@PathVariable long id) throws EmailException {
         return new ResponseEntity<>(emailService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/login")
-    public ResponseEntity<EmailAdmin> login(@RequestBody EmailLoginRequest loginRequest) throws EmailException, LoginException {
+    public ResponseEntity<AppUser> login(@RequestBody EmailLoginRequest loginRequest) throws EmailException, LoginException {
         return new ResponseEntity<>(emailService.loginToEmailAccount(loginRequest), HttpStatus.CREATED);
     }
 
@@ -49,7 +48,7 @@ public class EmailController {
     }
 
     @GetMapping("/findByEmailAddress/{emailAddress}")
-    public ResponseEntity<EmailAdmin> findByEmailAddress(@PathVariable String emailAddress) throws EmailMessageException {
+    public ResponseEntity<AppUser> findByEmailAddress(@PathVariable String emailAddress) throws EmailMessageException {
         return new ResponseEntity<>(emailService.findByEmailAddress(emailAddress), HttpStatus.OK);
     }
 }

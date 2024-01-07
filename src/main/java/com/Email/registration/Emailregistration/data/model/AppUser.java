@@ -1,11 +1,7 @@
 package com.Email.registration.Emailregistration.data.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Data
@@ -15,7 +11,7 @@ import java.util.List;
 @Entity
 @Builder
 @ToString
-public class EmailAdmin {
+public class AppUser {
     @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long emailId;
