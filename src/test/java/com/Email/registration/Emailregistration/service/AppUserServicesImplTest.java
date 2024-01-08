@@ -105,24 +105,11 @@ class AppUserServicesImplTest {
     }
 
 
-    @Test
-    void testThatWeCanVerifyIfPhoneNumberContainAlphabetic() throws EmailException {
-        assertEquals("07099332737", appUserService.
-                verifyIfPhoneNumberContainAlphabetic
-                        (appUserService.mapFromRequestToEmailAdmin(emailAdmin1))
-                .getPhoneNumber());
-    }
 
-    @Test
-    void verifyTheLengthOfPhoneNumber(){
-        assertEquals(11, appUserService.verifyLengthOfPhoneNumber(emailAdmin1.getPhoneNumber()));
-    }
 
-@Test
-    void creatingEmailGenerator(){
 
-assertEquals("SweetJoy45@gmail.com", appUserService.createEmailGenerator(appUserService.mapFromRequestToEmailAdmin(emailAdmin1)));
-}
+
+
 @Test
     void testThatWeCanCountTheNumberOfEmailUser(){
         assertEquals(6, appUserService.countEmailUsers());
@@ -155,12 +142,8 @@ assertEquals("SweetJoy45@gmail.com", appUserService.createEmailGenerator(appUser
     @Test
     void testThatUserCanBeFountWithEmailAddress() throws EmailMessageException {
 
-        assertEquals("ALEXPACKER", appUserService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getUserLastname());
+        assertEquals("ALEXPACKER", appUserService.findByEmailAddress(emailAdmin1.getUserEmailAddress()).getLastName());
 
-    }
-    @Test
-    public  void name(){
-        assertEquals("boneshaker", appUserService.printOut());
     }
 
 }

@@ -1,6 +1,5 @@
 package com.Email.registration.Emailregistration.dto.request;
 
-import com.Email.registration.Emailregistration.data.model.EmailMessage;
 import lombok.Data;
 
 @Data

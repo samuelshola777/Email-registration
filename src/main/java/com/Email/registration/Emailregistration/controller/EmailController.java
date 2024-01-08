@@ -22,7 +22,7 @@ public class EmailController {
     AppUserService emailService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> createEmailAddress(@RequestBody EmailAdminRequest emailAdminRequest)
+    public ResponseEntity<?> createEmailAddress(@RequestBody EmailAdminRequest emailAdminRequest)
             throws EmailException {
     return new ResponseEntity<>(emailService.registerEmailAccount(emailAdminRequest), HttpStatus.CREATED );
     }

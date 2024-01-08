@@ -1,6 +1,6 @@
 package com.Email.registration.Emailregistration.controller;
 
-import com.Email.registration.Emailregistration.data.model.EmailMessage;
+import com.Email.registration.Emailregistration.data.model.EmailAddress;
 import com.Email.registration.Emailregistration.dto.request.EmailMessageRequest;
 import com.Email.registration.Emailregistration.dto.response.EmailMessageResponse;
 import com.Email.registration.Emailregistration.service.EmailMessageService;
@@ -26,7 +26,7 @@ public class EmailMessageController {
 }
 
 @GetMapping("/getAllEmailMessages/{emailAddress}/{pagNum}/{page_size}")
-    public ResponseEntity<List<EmailMessage>> getAllEmailMessages(@PathVariable("emailAddress")
+    public ResponseEntity<List<EmailAddress>> getAllEmailMessages(@PathVariable("emailAddress")
   String emailAddress, @PathVariable("pagNum") int pagNum, @PathVariable("page_size") int pagesize){
     return new ResponseEntity<>(emailService.viewAllMessages(emailAddress, pagNum, pagesize),HttpStatus.OK);
 }

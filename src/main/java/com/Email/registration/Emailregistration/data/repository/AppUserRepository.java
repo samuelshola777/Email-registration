@@ -12,7 +12,7 @@ public interface AppUserRepository extends JpaRepository<AppUser,Long> {
 
 
 
-    AppUser findByUserEmailAddress(String userEmailAddress);
-Optional<AppUser> findEmailAdminByUserEmailAddress(String userEmailAddress);
+    AppUser findByEmail(String userEmailAddress);
+Optional<AppUser> findEmailAdminByEmail(String userEmailAddress);
 
 }
